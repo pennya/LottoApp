@@ -1,13 +1,13 @@
 package com.jh3.lottoapp;
 
-import java.io.Serializable;
+import io.realm.RealmObject;
 
 /**
  * Created by kim on 2018. 4. 1..
  */
 
-public class LottoWinningResult implements Serializable {
-    private static final long serialVersionUID = 5520411361084755379L;
+public class LottoWinningResult extends RealmObject {
+    private String id;
     private int round;
     private String result;
     private int num1;
@@ -19,6 +19,15 @@ public class LottoWinningResult implements Serializable {
 
     public static LottoWinningResult builder() {
         return new LottoWinningResult();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public LottoWinningResult setId(String id) {
+        this.id = id;
+        return this;
     }
 
     public int getRound() {
@@ -92,11 +101,4 @@ public class LottoWinningResult implements Serializable {
         this.num6 = num6;
         return this;
     }
-
-    @Override
-    public String toString() {
-        return round + "\t" + result + "\t" + num1 + "\t" + num2 + "\t" + num3 +
-                "\t" + num4 + "\t" + num5 + "\t" + num6 + "\n";
-    }
-
 }

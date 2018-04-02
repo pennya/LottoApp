@@ -1,7 +1,6 @@
 package com.jh3.lottoapp;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -18,16 +17,18 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import io.realm.Realm;
+import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ScanQrCodeActivity extends AppCompatActivity {
+public class ScanQrCodeActivity extends BaseActivity {
 
-    public static final String LOG_TAG = "LOTTOAPP";
     private TextView tvRound, tvNumber, tvResult;
     private ArrayList<LottoWinningResult> lottoEntities;
     private int currentRound;
+    private Realm realm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,17 +55,34 @@ public class ScanQrCodeActivity extends AppCompatActivity {
             if (result == null) {
                 Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
                 Log.d(LOG_TAG, result.getContents());
 
                 final String qrUrl = result.getContents();
                 new Thread() {
                     @Override
                     public void run() {
+                        String id = qrUrl.substring(qrUrl.lastIndexOf("v=") + 2);
                         // redirect url
-                        String finalQrUrl = "http://m.nlotto.co.kr/qr.do?method=winQr&v=" +
-                                qrUrl.substring(qrUrl.lastIndexOf("v=") + 2);
-                        getWebSite(finalQrUrl);
+                        String finalQrUrl = "http://m.nlotto.co.kr/qr.do?method=winQr&v=" + id;
+
+                        realm = Realm.getDefaultInstance();
+                        RealmResults<LottoWinningResult> results =
+                                realm.where(LottoWinningResult.class)
+                                        .equalTo("id", id)
+                                        .findAll();
+                        if(results.size() == 0) {
+                            getWebSite(finalQrUrl);
+                        } else {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Log.d(LOG_TAG, "이미 저장된 용지입니다");
+                                    Toast.makeText(ScanQrCodeActivity.this, "이미 저장된 용지입니다", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                }
+                            });
+
+                        }
                     }
                 }.start();
 
@@ -78,7 +96,6 @@ public class ScanQrCodeActivity extends AppCompatActivity {
         new Thread() {
             @Override
             public void run() {
-                final StringBuilder winningResult = new StringBuilder();
                 final StringBuilder builder = new StringBuilder();
 
                 try {
@@ -161,8 +178,11 @@ public class ScanQrCodeActivity extends AppCompatActivity {
                             num6 = Integer.parseInt(s6.substring(s6.lastIndexOf("_") + 1, s6.lastIndexOf(".")));
                         }
 
-                        LottoWinningResult lottoWinningResult =
+                        String id = urlString.substring(urlString.lastIndexOf("v=") + 2);
+
+                        final LottoWinningResult lottoWinningResult =
                                 LottoWinningResult.builder()
+                                .setId(id)
                                 .setResult(split[i])
                                 .setNum1(num1)
                                 .setNum2(num2)
@@ -172,10 +192,26 @@ public class ScanQrCodeActivity extends AppCompatActivity {
                                 .setNum6(num6)
                                 .setRound(round);
                         lottoEntities.add(lottoWinningResult);
+
+                        // db save
+                        realm = Realm.getDefaultInstance();
+                        realm.executeTransaction(new Realm.Transaction() {
+                            @Override
+                            public void execute(Realm realm) {
+                                LottoWinningResult result = realm.createObject(LottoWinningResult.class);
+                                result.setId(lottoWinningResult.getId());
+                                result.setRound(lottoWinningResult.getRound());
+                                result.setResult(lottoWinningResult.getResult());
+                                result.setNum1(lottoWinningResult.getNum1());
+                                result.setNum2(lottoWinningResult.getNum2());
+                                result.setNum3(lottoWinningResult.getNum3());
+                                result.setNum4(lottoWinningResult.getNum4());
+                                result.setNum5(lottoWinningResult.getNum5());
+                                result.setNum6(lottoWinningResult.getNum6());
+                                Log.d(LOG_TAG, "realm create object");
+                            }
+                        });
                     }
-
-                    winningResult.append(lottoEntities.toString());
-
                 } catch (IOException e) {
                     builder.append("Error : ").append(e.getMessage()).append("\n");
                 }
@@ -183,7 +219,6 @@ public class ScanQrCodeActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        logPrint(winningResult.toString());
                         // 출력 및 회차 데이터 가져오기
                         showWinningNumber(currentRound);
                         showWinningResult();
@@ -248,20 +283,6 @@ public class ScanQrCodeActivity extends AppCompatActivity {
     }
 
     private void printLottoWinningNumber(LottoWinningNumber winNumber) {
-        /*bnusNo;             // 보너스 번호
-        g firstAccumamnt;     // 1등 당첨 총금
-        g firstWinamnt;       // 1등 1인당 당
-        ing returnValue;     // 결과값
-        g totSellamnt;        // 누적상금
-        drwtNo1;            // 번호1
-        drwtNo2;            // 번호2
-        drwtNo3;            // 번호3
-        drwtNo4;            // 번호4
-        drwtNo5;            // 번호5
-        drwtNo6;            // 번호6
-        ing drwNoDate;       // 당첨일
-        drwNo;              // 회차
-        firstPrzwnerCo;     // 1등당첨인*/
         String result = "";
         result += "당첨일\t" + winNumber.getDrwNoDate() + "\n";
         result += "1등 당첨 인\t" + winNumber.getFirstPrzwnerCo() + "명\n";
@@ -277,13 +298,15 @@ public class ScanQrCodeActivity extends AppCompatActivity {
         tvNumber.setText(result);
     }
 
-    private void initLayout() {
+    @Override
+    protected void initLayout() {
         tvRound = (TextView) findViewById(R.id.tv_scan_qr_code_round);
         tvNumber = (TextView) findViewById(R.id.tv_scan_qr_code_winning_number);
         tvResult = (TextView) findViewById(R.id.tv_scan_qr_code_winning_result);
     }
 
-    private void setDefaultSettings() {
+    @Override
+    protected void setDefaultSettings() {
         lottoEntities = new ArrayList<>();
     }
 }
