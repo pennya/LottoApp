@@ -6,6 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.jh3.lottoapp.ScanQrCodeActivity">
 
+    <!--Custom Toolbar-->
+    <include layout="@layout/toolbar" />
+
     <TextView
         android:id="@+id/tv_scan_qr_code_round"
         android:layout_width="wrap_content"

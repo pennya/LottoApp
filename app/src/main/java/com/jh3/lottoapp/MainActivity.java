@@ -12,7 +12,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         initLayout();
         setDefaultSettings();
@@ -42,5 +41,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void setDefaultSettings() {
 
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected int getTitleToolBar() {
+        return R.string.app_name;
     }
 }

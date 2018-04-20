@@ -33,19 +33,32 @@ public class ScanQrCodeActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_scan_qr_code);
 
         initLayout();
         setDefaultSettings();
-
         scanQrCode();
     }
 
-    private void scanQrCode() {
-        IntentIntegrator integrator = new IntentIntegrator(this);
-        integrator.setCaptureActivity(VerticalZxingActivity.class);
-        integrator.setOrientationLocked(false);
-        integrator.initiateScan();
+    @Override
+    protected void initLayout() {
+        tvRound = (TextView) findViewById(R.id.tv_scan_qr_code_round);
+        tvNumber = (TextView) findViewById(R.id.tv_scan_qr_code_winning_number);
+        tvResult = (TextView) findViewById(R.id.tv_scan_qr_code_winning_result);
+    }
+
+    @Override
+    protected void setDefaultSettings() {
+        lottoEntities = new ArrayList<>();
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.activity_scan_qr_code;
+    }
+
+    @Override
+    protected int getTitleToolBar() {
+        return R.string.app_name;
     }
 
     @Override
@@ -90,6 +103,13 @@ public class ScanQrCodeActivity extends BaseActivity {
         } else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private void scanQrCode() {
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.setCaptureActivity(VerticalZxingActivity.class);
+        integrator.setOrientationLocked(false);
+        integrator.initiateScan();
     }
 
     private void getWebSite(final String urlString) {
@@ -296,17 +316,5 @@ public class ScanQrCodeActivity extends BaseActivity {
                 winNumber.getDrwtNo6() + " " +
                 "보너스 " + winNumber.getBnusNo() + "\n";
         tvNumber.setText(result);
-    }
-
-    @Override
-    protected void initLayout() {
-        tvRound = (TextView) findViewById(R.id.tv_scan_qr_code_round);
-        tvNumber = (TextView) findViewById(R.id.tv_scan_qr_code_winning_number);
-        tvResult = (TextView) findViewById(R.id.tv_scan_qr_code_winning_result);
-    }
-
-    @Override
-    protected void setDefaultSettings() {
-        lottoEntities = new ArrayList<>();
     }
 }

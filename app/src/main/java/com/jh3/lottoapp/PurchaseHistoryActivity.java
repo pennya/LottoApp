@@ -23,7 +23,6 @@ public class PurchaseHistoryActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_purchase_history);
 
         initLayout();
         setDefaultSettings();
@@ -66,6 +65,16 @@ public class PurchaseHistoryActivity extends BaseActivity {
     @Override
     protected void setDefaultSettings() {
 
+    }
+
+    @Override
+    protected int getLayoutResource() {
+        return R.layout.activity_purchase_history;
+    }
+
+    @Override
+    protected int getTitleToolBar() {
+        return R.string.app_name;
     }
 
     private void realmFindAll() {
