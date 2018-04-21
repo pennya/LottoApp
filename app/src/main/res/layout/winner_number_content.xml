@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cl_main_number_root">
+
+    <ImageView
+        android:id="@+id/num1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/num2"
+        android:background="@mipmap/ic_one_green_128dp"
+        />
+
+    <ImageView
+        android:id="@+id/num2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/num1"
+        app:layout_constraintRight_toLeftOf="@+id/num3"
+        android:background="@mipmap/ic_two_green_128dp"
+        />
+
+    <ImageView
+        android:id="@+id/num3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/num2"
+        app:layout_constraintRight_toLeftOf="@+id/num4"
+        android:background="@mipmap/ic_three_green_128dp"
+        />
+
+    <ImageView
+        android:id="@+id/num4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/num3"
+        app:layout_constraintRight_toLeftOf="@+id/num5"
+        android:background="@mipmap/ic_four_blue_128dp"
+        />
+
+    <ImageView
+        android:id="@+id/num5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/num4"
+        app:layout_constraintRight_toLeftOf="@+id/num6"
+        android:background="@mipmap/ic_five_pink_128dp"
+        />
+
+    <ImageView
+        android:id="@+id/num6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/num5"
+        app:layout_constraintRight_toLeftOf="@+id/add"
+        android:background="@mipmap/ic_six_green_128dp"
+        />
+
+    <ImageView
+        android:id="@+id/add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/num6"
+        app:layout_constraintRight_toLeftOf="@+id/num7"
+        android:background="@mipmap/ic_add_black_128dp"
+        />
+
+    <ImageView
+        android:id="@+id/num7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/add"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@mipmap/ic_seven_green_128dp"
+        />
+
+</android.support.constraint.ConstraintLayout>
