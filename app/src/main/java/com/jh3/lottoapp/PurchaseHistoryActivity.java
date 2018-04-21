@@ -74,7 +74,12 @@ public class PurchaseHistoryActivity extends BaseActivity {
 
     @Override
     protected int getTitleToolBar() {
-        return R.string.app_name;
+        return 0;
+    }
+
+    @Override
+    protected int getHomeResource() {
+        return 0;
     }
 
     private void realmFindAll() {

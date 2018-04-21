@@ -62,6 +62,11 @@ public class ScanQrCodeActivity extends BaseActivity {
     }
 
     @Override
+    protected int getHomeResource() {
+        return 0;
+    }
+
+    @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data) {
         if (requestCode == IntentIntegrator.REQUEST_CODE) {
             IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
