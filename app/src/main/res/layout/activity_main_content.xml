@@ -7,15 +7,16 @@
     <!--Custom Toolbar-->
     <include layout="@layout/toolbar" />
 
-    <Button
-        android:id="@+id/btn_activity_main_qr_scan"
-        android:layout_width="0dp"
+    <ImageButton
+        android:id="@+id/ib_main_qr"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintBottom_toBottomOf="@+id/guide1"
-        app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        android:text="QR스캔"/>
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@mipmap/ic_qr_black_128dp"
+        />
 
     <android.support.constraint.Guideline
         android:id="@+id/guide1"
@@ -43,14 +44,23 @@
         app:layout_constraintRight_toRightOf="@+id/guide2"
         >
 
-        <Button
+        <ImageView
+            android:id="@+id/recommend_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:background="@mipmap/ic_launcher"
+            />
+
+        <TextView
+            android:id="@+id/recommend_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/recommend_image"
+            app:layout_constraintBottom_toBottomOf="@+id/recommend_image"
+            app:layout_constraintLeft_toRightOf="@+id/recommend_image"
             app:layout_constraintRight_toRightOf="parent"
-            android:text="TEST"/>
+            android:text="금주의 번호추천"
+            />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -64,13 +74,20 @@
         app:layout_constraintRight_toRightOf="@+id/guide2"
         >
 
-        <Button
-            android:id="@+id/btn_activity_main_show_history"
+        <ImageView
+            android:id="@+id/purchase_history_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/ic_launcher"
+            />
+
+        <TextView
+            android:id="@+id/purchase_history_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/purchase_history_image"
+            app:layout_constraintBottom_toBottomOf="@+id/purchase_history_image"
+            app:layout_constraintLeft_toRightOf="@+id/purchase_history_image"
             app:layout_constraintRight_toRightOf="parent"
             android:text="구매내역보기"
             />
@@ -87,14 +104,23 @@
         app:layout_constraintRight_toRightOf="@+id/guide2"
         >
 
-        <Button
+        <ImageView
+            android:id="@+id/winner_history_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:background="@mipmap/ic_launcher"
+            />
+
+        <TextView
+            android:id="@+id/winner_history_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/winner_history_image"
+            app:layout_constraintBottom_toBottomOf="@+id/winner_history_image"
+            app:layout_constraintLeft_toRightOf="@+id/winner_history_image"
             app:layout_constraintRight_toRightOf="parent"
-            android:text="TEST"/>
+            android:text="당첨번호/당첨금"
+            />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -110,14 +136,23 @@
         app:layout_constraintRight_toRightOf="parent"
         >
 
-        <Button
+        <ImageView
+            android:id="@+id/memo_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:background="@mipmap/ic_launcher"
+            />
+
+        <TextView
+            android:id="@+id/memo_history_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/memo_image"
+            app:layout_constraintBottom_toBottomOf="@+id/memo_image"
+            app:layout_constraintLeft_toRightOf="@+id/memo_image"
             app:layout_constraintRight_toRightOf="parent"
-            android:text="TEST"/>
+            android:text="번호메모"
+            />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -131,14 +166,23 @@
         app:layout_constraintRight_toRightOf="parent"
         >
 
-        <Button
+        <ImageView
+            android:id="@+id/make_number_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:background="@mipmap/ic_launcher"
+            />
+
+        <TextView
+            android:id="@+id/make_number_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/make_number_image"
+            app:layout_constraintBottom_toBottomOf="@+id/make_number_image"
+            app:layout_constraintLeft_toRightOf="@+id/make_number_image"
             app:layout_constraintRight_toRightOf="parent"
-            android:text="TEST"/>
+            android:text="번호조합"
+            />
 
     </android.support.constraint.ConstraintLayout>
 
@@ -152,14 +196,23 @@
         app:layout_constraintRight_toRightOf="parent"
         >
 
-        <Button
+        <ImageView
+            android:id="@+id/comment_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            android:background="@mipmap/ic_launcher"
+            />
+
+        <TextView
+            android:id="@+id/comment_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/comment_image"
+            app:layout_constraintBottom_toBottomOf="@+id/comment_image"
+            app:layout_constraintLeft_toRightOf="@+id/comment_image"
             app:layout_constraintRight_toRightOf="parent"
-            android:text="TEST"/>
+            android:text="당첨후기"
+            />
 
     </android.support.constraint.ConstraintLayout>
 

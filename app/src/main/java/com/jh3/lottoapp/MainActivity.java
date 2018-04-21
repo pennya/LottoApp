@@ -4,13 +4,14 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
@@ -18,7 +19,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private ActionBarDrawerToggle actionBarDrawerToggle;
-    private Button btnQrScan, btnHistory;
+    private ImageButton btnQrScan;
+    private ConstraintLayout purchaseHistory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +33,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_activity_main_qr_scan:
+            case R.id.ib_main_qr:
                 startActivity(new Intent(this, ScanQrCodeActivity.class));
                 break;
 
-            case R.id.btn_activity_main_show_history:
+            case R.id.cl_main_purchase_history:
                 startActivity(new Intent(this, PurchaseHistoryActivity.class));
                 break;
         }
@@ -99,10 +101,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        btnQrScan = (Button) findViewById(R.id.btn_activity_main_qr_scan);
-        btnHistory = (Button) findViewById(R.id.btn_activity_main_show_history);
+        btnQrScan = (ImageButton) findViewById(R.id.ib_main_qr);
+        purchaseHistory = (ConstraintLayout) findViewById(R.id.cl_main_purchase_history);
         btnQrScan.setOnClickListener(this);
-        btnHistory.setOnClickListener(this);
+        purchaseHistory.setOnClickListener(this);
     }
 
     @Override
