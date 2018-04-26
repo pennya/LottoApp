@@ -13,5 +13,3 @@
 
 4. 메모기능추가
 
-
-SlackApp TEST
