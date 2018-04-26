@@ -10,3 +10,5 @@
 
 3. 회차별 정보 조회
  - retrofit, 나눔로또 json response
+
+4. 메모기능추가
